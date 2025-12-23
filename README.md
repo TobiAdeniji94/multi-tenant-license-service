@@ -1,4 +1,4 @@
-# License Service
+# Multi-Tenant License Management Service
 
 A multi-tenant, centralized license management service for group.one brands (WP Rocket, RankMath, Imagify, etc.).
 
@@ -26,9 +26,10 @@ A multi-tenant, centralized license management service for group.one brands (WP 
 docker-compose up -d
 
 # The API will be available at http://localhost:8000
+Admin dashboard: http://localhost:8000/admin/
 
-# Create the superuser inside the container (follow the promts to set username, email and password)
-docker-compose exec web python manage.py shell
+# Create the superuser inside the container to access admin dashboard (follow the promts to set username, email and password)
+docker-compose exec web python manage.py createsuperuser
 ```
 
 ### Option 2: Local Development

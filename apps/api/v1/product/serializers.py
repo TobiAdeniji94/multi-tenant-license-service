@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 class ProductInfoSerializer(serializers.Serializer):
     """Minimal product info for product API responses."""
+
     id = serializers.UUIDField()
     name = serializers.CharField()
     slug = serializers.CharField()
@@ -13,6 +14,7 @@ class ProductInfoSerializer(serializers.Serializer):
 
 class LicenseInfoSerializer(serializers.Serializer):
     """License info for product API responses."""
+
     id = serializers.UUIDField()
     product = ProductInfoSerializer()
     status = serializers.CharField()
@@ -25,6 +27,7 @@ class LicenseInfoSerializer(serializers.Serializer):
 
 class ActivationInfoSerializer(serializers.Serializer):
     """Activation info for product API responses."""
+
     id = serializers.UUIDField()
     instance_id = serializers.CharField()
     instance_name = serializers.CharField()
@@ -34,15 +37,19 @@ class ActivationInfoSerializer(serializers.Serializer):
 
 class ActivateLicenseSerializer(serializers.Serializer):
     """Serializer for license activation request."""
+
     license_key = serializers.CharField()
     product_slug = serializers.CharField()
     instance_id = serializers.CharField(max_length=255)
-    instance_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    instance_name = serializers.CharField(
+        max_length=255, required=False, allow_blank=True
+    )
     instance_metadata = serializers.JSONField(required=False, default=dict)
 
 
 class ActivationResponseSerializer(serializers.Serializer):
     """Serializer for activation response."""
+
     activation_id = serializers.UUIDField()
     license_id = serializers.UUIDField()
     product = ProductInfoSerializer()
@@ -55,6 +62,7 @@ class ActivationResponseSerializer(serializers.Serializer):
 
 class ValidateLicenseSerializer(serializers.Serializer):
     """Serializer for license validation request."""
+
     license_key = serializers.CharField()
     product_slug = serializers.CharField(required=False)
     instance_id = serializers.CharField(max_length=255, required=False)
@@ -62,6 +70,7 @@ class ValidateLicenseSerializer(serializers.Serializer):
 
 class ValidationResponseSerializer(serializers.Serializer):
     """Serializer for validation response."""
+
     is_valid = serializers.BooleanField()
     license_key = serializers.CharField()
     licenses = LicenseInfoSerializer(many=True)
@@ -70,6 +79,7 @@ class ValidationResponseSerializer(serializers.Serializer):
 
 class DeactivateLicenseSerializer(serializers.Serializer):
     """Serializer for license deactivation request."""
+
     license_key = serializers.CharField()
     product_slug = serializers.CharField()
     instance_id = serializers.CharField(max_length=255)
@@ -77,6 +87,7 @@ class DeactivateLicenseSerializer(serializers.Serializer):
 
 class LicenseStatusResponseSerializer(serializers.Serializer):
     """Serializer for license status response."""
+
     license_key = serializers.CharField()
     customer_email = serializers.EmailField()
     brand = serializers.CharField()
