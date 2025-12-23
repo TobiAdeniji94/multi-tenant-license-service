@@ -125,6 +125,23 @@ SPECTACULAR_SETTINGS = {
         },
         {"name": "Health", "description": "System health and status endpoints"},
     ],
+    "APPEND_COMPONENTS": {
+        "securitySchemes": {
+            "BrandAPIKey": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Key",
+                "description": "Brand API Key",
+            },
+            "BrandAPISecret": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Secret",
+                "description": "Brand API Secret",
+            },
+        },
+    },
+    "SECURITY": [{"BrandAPIKey": [], "BrandAPISecret": []}],
 }
 
 # Logging configuration

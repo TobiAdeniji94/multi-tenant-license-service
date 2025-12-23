@@ -58,6 +58,44 @@ Once running, access the interactive API documentation at:
 - **Swagger UI**: http://localhost:8000/api/docs/
 - **OpenAPI Schema**: http://localhost:8000/api/schema/
 
+## Getting Brand API Credentials
+
+After creating a Brand in the admin panel, the `api_secret` is not displayed for security reasons. To retrieve it:
+
+### Option 1: Django Shell
+
+```bash
+python manage.py shell
+```
+
+```python
+from apps.brands.models import Brand
+
+# Get a specific brand
+brand = Brand.objects.get(slug='your-brand-slug')
+print(f"API Key: {brand.api_key}")
+print(f"API Secret: {brand.api_secret}")
+
+# Or list all brands with credentials
+for brand in Brand.objects.all():
+    print(f"{brand.name}: key={brand.api_key}, secret={brand.api_secret}")
+```
+
+### Option 2: Regenerate Credentials
+
+If you need new credentials:
+
+```python
+from apps.brands.models import Brand
+
+brand = Brand.objects.get(slug='your-brand-slug')
+new_key, new_secret = brand.regenerate_credentials()
+print(f"New API Key: {new_key}")
+print(f"New API Secret: {new_secret}")
+```
+
+> **Note**: API secrets are generated once when the Brand is created and stored securely. In production, consider storing them in a secrets manager and providing them to brand systems through secure channels.
+
 ## API Overview
 
 ### Brand API (`/api/v1/brand/`)
